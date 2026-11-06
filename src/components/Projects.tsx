@@ -1,0 +1,5 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import {mediaUrl,type Project} from '@/lib/sanity';
+export function ProjectCard({project,index=0}:{project:Project;index?:number}){return <Link href={`/work/${project.slug}`} className={`project-card project-${index%3}`}><div className="project-cover">{project.coverMedia&&<Image src={mediaUrl(project.coverMedia)} alt={project.coverMedia.alt||project.title} fill sizes="(max-width: 700px) 100vw, 65vw"/>}<span className="project-arrow" aria-hidden="true">↗</span></div><div className="project-caption"><h3>{project.title}</h3><span>{project.category} / {project.classification==='concept'?'Self-initiated':'Commissioned'}</span></div><p>{project.summary}</p></Link>}
+export function EmptyWork(){return <div className="empty-work"><span className="eyebrow">THE EXHIBITION / IN PREPARATION</span><h3>Good work deserves<br/>a proper introduction.</h3><p>Selected projects are being prepared for this space. Explore the practice behind the work in the meantime.</p><Link href="/services" className="text-link">Explore capabilities ↗</Link><div className="empty-symbol" aria-hidden="true">N<span>↗</span></div></div>}

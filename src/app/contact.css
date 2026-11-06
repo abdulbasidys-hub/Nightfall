@@ -1,0 +1,84 @@
+/* Labels are separate from controls so focus rings never touch label text. */
+.contact-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 7vw, 112px);
+  align-items: start;
+  padding: 75px var(--pad) 100px;
+}
+.contact-page > * { min-width: 0; }
+.contact-heading h1 { margin: 38px 0; font-size: clamp(72px, 8.5vw, 140px); position: relative; }
+.contact-heading h1 em { color: #6a7a6f; }
+.contact-heading h1 > span { position: absolute; right: 0; bottom: 0; font-size: .7em; }
+.contact-heading > p { font-size: 15px; line-height: 1.8; color: #526157; }
+.direct-contact { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; }
+.direct-contact p { font-size: 13px; color: #526157; }
+.direct-contact a { display: flex; align-items: center; min-height: 44px; font-size: 15px; overflow-wrap: anywhere; }
+.contact-form { min-width: 0; display: grid; gap: 26px; padding-top: 15px; margin: 0; }
+.form-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; font-size: 13px; color: #526157; }
+.form-note > span { font-size: 12px; }
+.form-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.form-field { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.contact-form label { display: block; margin: 0; font-size: 14px; font-weight: 500; line-height: 1.5; }
+.contact-form label > span { color: #087540; }
+.contact-form label small { color: #526157; font-size: 12px; font-weight: 400; }
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 54px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid #a9b8ad;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--black);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  box-shadow: none;
+  scroll-margin-block: 28px;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: #637369; opacity: 1; }
+.contact-form select { padding-right: 36px; }
+.contact-form textarea { min-height: 168px; resize: vertical; }
+.contact-form :is(input, select, textarea):focus {
+  border-color: #087540;
+  outline: 2px solid #087540;
+  outline-offset: 2px;
+}
+.spam-check { width: 100%; min-width: 0; }
+.form-disclosure { font-size: 12px; line-height: 1.7; color: #526157; margin: 0; }
+.submit-button { border: 0; background: var(--black); color: var(--white); display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; min-height: 58px; width: 100%; font-size: 14px; }
+.submit-button span { font-size: 26px; color: var(--green); }
+.contact-form .submit-button:hover:not(:disabled) { background: #202e25; }
+.form-status { font-size: 14px; margin: 0; line-height: 1.7; overflow-wrap: anywhere; }
+.form-status:empty { display: none; }
+.form-status.error { color: #9d2626; }
+.form-status.success { color: #087540; }
+@media (max-width: 1100px) {
+  .contact-page { gap: 40px; }
+  .form-pair { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .contact-page { grid-template-columns: minmax(0, 1fr); padding-block: 48px 64px; gap: 44px; }
+  .contact-heading h1 { font-size: clamp(76px, 13vw, 112px); max-width: 440px; margin-block: 28px; }
+  .contact-heading h1 > span { right: 6%; }
+  .direct-contact { margin-top: 28px; }
+  .contact-form { width: 100%; max-width: 680px; padding: 32px 0 0; border-top: 1px solid #cad3cd; }
+  .form-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .contact-page { gap: 32px; padding-block: 36px 48px; }
+  .contact-heading h1 { font-size: clamp(68px, 20vw, 100px); max-width: 370px; }
+  .contact-heading > p { font-size: 15px; }
+  .contact-form { gap: 24px; padding-top: 28px; }
+  .form-pair { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .form-note { display: grid; gap: 4px; }
+  .contact-form textarea { min-height: 176px; }
+  .submit-button { min-height: 58px; padding-inline: 20px; }
+}
