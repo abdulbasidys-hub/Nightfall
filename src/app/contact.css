@@ -14,6 +14,10 @@
 .direct-contact { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; }
 .direct-contact p { font-size: 13px; color: #526157; }
 .direct-contact a { display: flex; align-items: center; min-height: 44px; font-size: 15px; overflow-wrap: anywhere; }
+.direct-contact .x-contact-link { align-self: flex-start; gap: 14px; padding-block: 10px; border-bottom: 1px solid #a9b8ad; }
+.x-contact-link svg { width: 20px; height: 20px; flex-shrink: 0; }
+.x-contact-link > span:last-child { margin-left: 18px; color: #087540; }
+.x-contact-link:hover { color: #087540; }
 .contact-form { min-width: 0; display: grid; gap: 26px; padding-top: 15px; margin: 0; }
 .form-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; font-size: 13px; color: #526157; }
 .form-note > span { font-size: 12px; }

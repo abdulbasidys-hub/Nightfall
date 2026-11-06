@@ -21,6 +21,8 @@ External account workflows require owner configuration; they must not be treated
 
 ## Manual staging checklist
 
+Revision on 6 November 2026: updated editorial headings, separated the homepage headline and orbital artwork, added four SVG capability icons, removed hero scroll/index extras, made wordmark asterisks green, removed budget/timeline from form validation and delivery, and replaced direct contact links with the owner's X profile. Production build, validation tests, and rendered route checks pass. Visual browser/mobile review remains unverified. Work currently displays all published projects without pagination; Home is limited to three featured projects.
+
 - Sanity: authorized editor login, viewer permissions, draft creation and preview, image and video upload, publish, edit, unpublish, and draft isolation from public routes/sitemap.
 - Work: featured order, archive layout, every category filter, tags/classification, six presentation types, optional fields, external links, related projects and unpublished slug 404.
 - Contact: required-field and email validation, spam rejection, successful provider delivery, provider error feedback, direct email and WhatsApp links.

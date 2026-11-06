@@ -1,0 +1,58 @@
+/* A real layout gap keeps the orbital artwork clear of the headline. */
+.wordmark > span { color: var(--green); }
+.hero { padding: 34px var(--pad) 0; overflow: hidden; position: relative; }
+.hero-top { display: flex; justify-content: flex-end; align-items: center; color: var(--silver); }
+.hero-title {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 100px);
+  min-height: 0;
+  padding: 50px 0 40px;
+}
+.hero h1 { font-size: clamp(64px, 8.2vw, 132px); line-height: 1.03; max-width: none; min-width: 0; animation: hero-enter .9s ease-out both; }
+.hero h1 em { display: inline-block; color: var(--white); margin-left: 0; }
+.hero h1 em::after { content: none; }
+.hero .orbit {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  max-width: 510px;
+  max-height: none;
+  justify-self: end;
+  opacity: 1;
+  transform: none;
+}
+.hero .orbit-ring { position: absolute; border-radius: 50%; left: 6%; top: 27%; width: 88%; height: 46%; background: none; border: 2px solid #acb8b0; box-shadow: none; }
+.hero .ring-one { transform: rotate(42deg); }
+.hero .ring-two { transform: rotate(-32deg); border-color: #d0d9d3; }
+.hero .ring-three { transform: rotate(88deg); border-color: #75877b; }
+.hero .orbit-core { position: absolute; border-radius: 50%; left: 44%; top: 44%; width: 12%; height: 12%; background: radial-gradient(circle at 30% 25%, #b6c3bb, #405448 40%, #15231b 75%); }
+.hero .orbit-dot { position: absolute; border-radius: 50%; left: 74%; top: 27%; width: 9px; height: 9px; background: var(--green); box-shadow: 0 0 18px #00e67655; }
+.orbit-badge { position: absolute; display: grid; place-items: center; width: 12%; aspect-ratio: 1; border: 1px solid #a5b4aa; border-radius: 50%; background: #101713; color: #e1e7e3; }
+.orbit-badge svg { width: 61%; height: 61%; }
+.orbit-badge .icon-accent { stroke: var(--green); }
+.orbit-badge.design { left: 12%; top: 24%; }
+.orbit-badge.code { right: 6%; top: 31%; }
+.orbit-badge.automation { left: 15%; bottom: 22%; }
+.orbit-badge.growth { right: 9%; bottom: 25%; }
+.hero-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 30px; padding: 0 0 55px; }
+.hero-bottom p { color: var(--silver); font-size: 13px; line-height: 1.7; }
+.hero-bottom .arrow-link { justify-self: end; min-width: 210px; }
+@media (max-width: 1000px) {
+  .hero-title { gap: 32px; padding-block: 40px 32px; }
+  .hero h1 { font-size: clamp(58px, 8vw, 90px); }
+}
+@media (max-width: 700px) {
+  .hero { padding-top: 25px; }
+  .hero-top > span:last-child { display: inline; }
+  .hero-title { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: 36px 28px; }
+  .hero h1 { font-size: clamp(48px, 14vw, 88px); }
+  .hero .orbit { width: min(80%, 340px); justify-self: end; }
+  .hero-bottom { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-bottom: 36px; }
+  .hero-bottom p { font-size: 13px; max-width: 280px; }
+  .hero-bottom .arrow-link { font-size: 13px; min-width: 190px; }
+}

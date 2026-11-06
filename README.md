@@ -28,7 +28,7 @@ The six presentation options each apply a different media treatment: product fra
 
 ## Enquiry delivery
 
-Set public `NEXT_PUBLIC_CONTACT_EMAIL` and `NEXT_PUBLIC_WHATSAPP_NUMBER` (international digits, including country code). They activate mailto and WhatsApp links. Missing values show an honest availability message.
+The Contact page links directly to https://x.com/nightfallbuilds with an X icon. Public email and WhatsApp environment variables are no longer used. The form collects name, email, service area, and project description; budget and timeline have been removed.
 
 For form delivery, configure:
 
