@@ -1,55 +1,70 @@
 # Nightfall
 
-A multi-page Next.js App Router / TypeScript website built from `build.md`. The supplied portrait is preserved on About. No client work, metrics, or testimonials have been invented. The portfolio stays empty until real content is published.
+Next.js App Router / TypeScript portfolio with a public Sanity dataset and a Resend-backed enquiry form. The established design and supplied portrait are preserved. No client projects, testimonials, or outcomes are invented.
 
-## Run locally
+## Local setup
 
-Requires Node.js 22.12+ (Node 24 recommended).
+Requires Node.js 22.12+; Node 24 is recommended.
 
 ```sh
 npm ci
-cp .env.example .env.local
 npm run dev
 ```
 
-On PowerShell use `Copy-Item .env.example .env.local`. Open http://localhost:3000. Production: `npm run build`, then `npm start`. Validation: `npm run typecheck` and `npm test`. With an **unconfigured** production server running, `npm run test:smoke` checks the routes and safe API failure states; it expects CMS and mail credentials to be absent.
+Use the existing ignored `.env` file, or copy `.env.example` to `.env.local` if you have not configured a local file yet. Never overwrite a configured file with the blank template. If both files exist, `.env.local` takes precedence: keep active settings in one file to avoid confusion. Both filenames are ignored by Git. Restart the dev server after changing values.
 
-## Connect Sanity
+The only application environment variables are:
 
-1. Create/select a project at https://www.sanity.io/manage. Create the `production` dataset and **make it private**. Invite only authorized editors; Sanity's own login and dataset permissions secure the embedded Studio. `/studio` is excluded from search indexing and public navigation. The Studio application shell is reachable; content and editing require an authorized Sanity account.
-2. Set `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` in `.env.local` and hosting environment variables. These IDs are public, not credentials.
-3. Create a **Viewer** read token and set server-only `SANITY_API_READ_TOKEN`. Never prefix this token with `NEXT_PUBLIC_`. A private dataset needs this token for published reads as well as previews.
-4. Add `http://localhost:3000` and the final HTTPS website origin to Sanity API CORS origins, allowing credentials for Studio authentication. Restart Next.js after changing environment variables.
-5. Visit `/studio`, sign in, and create a Project. Fill title, slug, summary, category, classification, presentation type, cover and its alt text. Add role, context, gallery, process, outcome, tags, and external link as available. Set featured/display order as needed. Upload images directly; gallery files accept video.
-6. Use the Presentation tab to preview drafts. The signed Sanity handshake enables an HTTP-only Draft Mode cookie for that browser; public visitors receive the published perspective. Navigate the preview iframe to `/work/your-slug` if necessary. Exit using the preview banner.
-7. Publish when approved. Changes are fetched on every request; unpublishing removes work without a source edit. Featured work appears on Home and the top of Work; other work appears in the asymmetric Creative Archive. Filters derive only from published projects. Optional fields stay hidden when absent.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Keep `http://localhost:3000` locally; set the deployment's HTTPS origin when deploying. |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Public Sanity project identifier. |
+| `NEXT_PUBLIC_SANITY_DATASET` | Public content dataset, normally `production`. |
+| `RESEND_API_KEY` | Server-only Resend sending credential. |
+| `CONTACT_FROM_EMAIL` | Server-only authenticated sender on a domain verified in Resend. |
+| `CONTACT_TO_EMAIL` | Server-only inbox receiving enquiries. |
 
-The six presentation options each apply a different media treatment: product framing, staggered editorial gallery, website browser framing, centered video, paired case-study media, and a demonstration rail. An interactive demo is represented by supplied media and an optional external link; the site never invents live product functionality. For videos, include an accessible caption and provide captioned video files. This implementation has no sample or automatically seeded projects.
+Only the first three variables are public. Never put private credentials into a variable prefixed `NEXT_PUBLIC_`, source files, commits, screenshots, or logs. Configure these same six variables in the deployment host's environment settings.
 
-## Enquiry delivery
+## Sanity
 
-The Contact page links directly to https://x.com/nightfallbuilds with an X icon. Public email and WhatsApp environment variables are no longer used. The form collects name, email, service area, and project description; budget and timeline have been removed.
+1. Select the project at https://www.sanity.io/manage and use the public `production` dataset. Set its ID and dataset in your local environment.
+2. Add the local origin and eventual deployment origin to Sanity's CORS settings, allowing credentials for authenticated Studio use.
+3. Open `/studio`, sign in with an authorized Sanity account, and create a Project. Public dataset visibility permits reading published content; it does not allow anonymous editing.
+4. Supply the title, slug, summary, category, concept/commissioned classification, presentation type, cover image and alt text. Add role, context, gallery images/videos, process, outcomes, tags and external links where available.
+5. Set featured status and display order. Publish when approved. The public site uses the published perspective and explicitly excludes draft/release documents. No read token is needed or used. Unpublishing removes a project from listings, details, and sitemap on subsequent requests.
 
-For form delivery, configure:
+Home displays up to three featured projects. Work displays featured projects and a Creative Archive, with category filters derived from published work. Work currently has no pagination. Project detail queries fetch only the requested slug. The only current CMS document type is Project; the other page copy remains in source.
 
-- `RESEND_API_KEY`: server-only Resend key.
-- `CONTACT_FROM_EMAIL`: sender on your verified Resend domain.
-- `CONTACT_TO_EMAIL`: inbox for enquiries.
-- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and server-only `TURNSTILE_SECRET_KEY`: a Cloudflare Turnstile widget restricted to your website hostnames.
+The presentation options are product showcase, editorial gallery, website preview, video showcase, case study, and interactive demo. Each uses a distinct media treatment. Interactive demos use supplied media and an optional external link; no live product functionality is fabricated. Upload captioned videos and provide useful image alt text.
 
-The form uses native browser validation plus server validation, a hidden honeypot, minimum completion time, same-origin enforcement, a request size limit, and server-verified Turnstile tokens. Turnstile is required for delivery; missing credentials return an explicit 503 message. Success is shown only after the mail provider accepts the message. The app does not store enquiries; the mail provider and receiving inbox process them. Approve privacy wording and retention arrangements before launch. Use Turnstile's documented test keys and a staging inbox for delivery QA; never commit credentials.
+**Preview policy:** Studio supports editing and saving drafts, but the embedded website preview shows published content only. Website draft-mode endpoints have been removed. Previewing unpublished drafts on the website would require a separate authenticated design and credentials; it is not part of this token-free setup.
 
-## Deploy
+## Contact form
 
-Deploy this directory as a standard Next.js application to a Node-compatible host (for example Vercel). Configure the environment variables, set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin, and build. Do not use a static export: CMS draft previews and the contact API require a server. The root metadata, generated social image, sitemap, robots, project metadata, and optimized Sanity images are included. Do not expose secrets in source or build logs.
+The form collects **name, email address, subject, and message**. All fields are required. The email address is used as Reply-To. The sender always comes from `CONTACT_FROM_EMAIL`, and notifications go only to `CONTACT_TO_EMAIL`. Direct contact links to the owner's X profile; no email address or WhatsApp number is displayed publicly.
 
-## Owner review / launch gates
+Frontend and backend share validation. The backend checks origin, JSON/body size, a hidden honeypot, minimum completion time, and a bounded per-instance submission throttle. The throttle is best effort across a single running server process, not a shared global quota. No external anti-spam service, database, or message storage is introduced. Short-lived throttle counters expire after ten minutes.
 
-- Supply approved project content, imagery, dates, classification, and roles. PULSE is not included because no approved project data was supplied.
-- Confirm final wordmark/logo and portrait usage. The provided image has sunglasses; it was preserved rather than altering the supplied character to match the prose description.
-- Supply domain, email, WhatsApp, deployment access, and final privacy/legal copy.
-- Connect Sanity, then test authorized login, unauthorized content access, draft preview, publish/unpublish, image/video upload, and each presentation type using actual staging content.
-- Configure mail and Turnstile, then test a successful delivery and rejected spam, provider error, validation and retry states.
-- Review desktop/tablet/mobile, keyboard navigation, and reduced motion with final content.
+The API uses Resend over HTTPS and reports success only after an OK provider response containing an email ID. This means **accepted for delivery**, not a guarantee of inbox delivery. Provider rejection, network failure, malformed responses, and missing configuration produce clear failure states. The form retains entered values after a failed submission. Credentials and raw provider error bodies are never returned to visitors or logged.
 
-These external account workflows cannot be verified without owner configuration. See `QA.md` for checks actually completed. The project is a local implementation; no public launch has been performed.
+**Email launch requirement:** A Gmail sender is not an authenticated custom-domain sender. Obtain and verify a domain in Resend, then set `CONTACT_FROM_EMAIL` to an address on that domain. Keep the receiving inbox in `CONTACT_TO_EMAIL`; it may be Gmail. The implementation never substitutes a visitor address or a test-domain address to bypass verification. Until the sender is valid, a real request may fail and the visitor will see a delivery failure. Review final privacy wording and inbox retention before public launch.
+
+## Verification
+
+```sh
+npm test
+npm run build
+npm run typecheck
+node tests/check-sanity.mjs
+```
+
+Unit tests exercise shared form validation, request handling, rate limits, sender/Reply-To configuration, provider acceptance and rejection, public-only GROQ queries against test-only fixtures, and atom geometry. Mock email tests never send real messages. The Sanity check uses the saved environment and makes unauthenticated read-only queries; it reports a skip if the project ID is blank and does not print environment values.
+
+With a production server running, `npm run test:smoke` checks routes, required form fields, validation/spam rejection, retired draft-route 404s, social image, sitemap, and assets. It never sends a valid enquiry to a real mailbox. For an alternate local port, set `TEST_BASE_URL` in that test process. Real successful email delivery must be verified separately after domain setup. Read `QA.md` for observed results and limits.
+
+## Deployment
+
+Run `npm run build`, then `npm start`, or deploy to a Node-compatible Next.js host such as Vercel. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin and configure the other five variables privately in the host dashboard. Static export is unsuitable because CMS reads and contact delivery use server code. The project includes page/project metadata, social artwork, sitemap, robots, 404/error states, responsive images and reduced-motion styles.
+
+Supply approved portfolio content, final domain, configured integration values, and a verified sender before launch. Successful source checks do not establish live CMS access, email deliverability, authenticated Studio workflows, or full browser/mobile QA.

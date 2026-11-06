@@ -1,11 +1,24 @@
-export const services=['Creative & Design','Websites & Digital Experiences','Automation & Systems','Technical Development','Growth & Execution','Something multidisciplinary'];
-export function validateEnquiry(data){
- if(!data||typeof data!=='object'||Array.isArray(data))return {error:'Please complete the required fields.'};
- const text=(key)=>typeof data[key]==='string'?data[key].trim():'';
- const name=text('name'),email=text('email'),service=text('service'),description=text('description');
- if(name.length<1||name.length>100)return {error:'Please enter your name (up to 100 characters).'};
- if(email.length>254||! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return {error:'Please enter a valid email address.'};
- if(!services.includes(service))return {error:'Please choose a service area.'};
- if(description.length<20||description.length>5000)return {error:'Please describe your project in 20–5,000 characters.'};
- return {value:{name,email,service,description}};
+/** Validate the same four fields in the browser and on the server. */
+export function validateEnquiry(data) {
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    return {error: 'Please complete the required fields.', errors: {name: 'Enter your name.'}};
+  }
+
+  const text = key => typeof data[key] === 'string' ? data[key].trim() : '';
+  const value = {name: text('name'), email: text('email'), subject: text('subject'), message: text('message')};
+  const errors = {};
+  if (!value.name || value.name.length > 100 || /[\r\n]/.test(value.name)) {
+    errors.name = 'Enter your name using up to 100 characters.';
+  }
+  if (value.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.email)) {
+    errors.email = 'Enter a valid email address so we can reply.';
+  }
+  if (value.subject.length < 3 || value.subject.length > 160 || /[\r\n]/.test(value.subject)) {
+    errors.subject = 'Enter a subject between 3 and 160 characters.';
+  }
+  if (value.message.length < 20 || value.message.length > 5000) {
+    errors.message = 'Enter a message between 20 and 5,000 characters.';
+  }
+  if (Object.keys(errors).length) return {error: 'Please check the highlighted fields.', errors};
+  return {value};
 }
