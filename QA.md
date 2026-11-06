@@ -4,6 +4,8 @@ External account workflows require owner configuration; they must not be treated
 
 ## Automated checks completed
 
+- Homepage atom revision: all rings and icon centers now share one SVG coordinate system. Two additional geometry tests verify icon centers on rotated ellipses at phone/desktop sizes, badge bounds, and separation. All five tests pass. The production SVG was rasterized and visually inspected at 310px and 450px; icon centers sit on the curves. Mobile hero CSS now centers the artwork, preserves the indented headline, and uses a 48px work-link touch target. Full-page browser mobile review remains pending.
+
 - TypeScript validation passed.
 - Final production build passed after dependency cleanup and the form widget lifecycle fix; all specified routes compiled successfully.
 - Clean-install validation (`npm ci --dry-run --ignore-scripts --no-audit`) passed against the final manifest and lockfile.

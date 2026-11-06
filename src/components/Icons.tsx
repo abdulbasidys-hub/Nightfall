@@ -1,7 +1,7 @@
 type IconProps = {className?: string};
 
-export function CapabilityIcon({kind}: {kind: 'design' | 'code' | 'automation' | 'growth'}) {
-  return <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+export function CapabilityIcon({kind, size = 32}: {kind: 'design' | 'code' | 'automation' | 'growth'; size?: number}) {
+  return <svg viewBox="0 0 32 32" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     {kind === 'design' && <><path d="m16 3 10 17-5 9H11l-5-9L16 3Z"/><path d="M16 3v13"/><circle className="icon-accent" cx="16" cy="19" r="3"/></>}
     {kind === 'code' && <><path className="icon-accent" d="m10 9-7 7 7 7m12-14 7 7-7 7"/><path d="m19 5-6 22"/></>}
     {kind === 'automation' && <><path d="m12 3-1 4-3 2-4-1-2 7 4 2 1 3-2 4 6 5 3-3h4l3 3 6-5-2-4 1-3 4-2-2-7-4 1-3-2-1-4h-8Z"/><circle className="icon-accent" cx="16" cy="16" r="5"/></>}
