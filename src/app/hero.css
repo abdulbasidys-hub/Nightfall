@@ -33,6 +33,7 @@
 }
 /* Both i stems occupy one grid column, so the join scales with the type. */
 .hero h1 .hero-line { display: contents; font-style: normal; }
+.hero h1 em.hero-line { color: var(--white); }
 .hero-word-prefix { grid-column: 1; justify-self: end; }
 .hero-joined-i, .hero-lower-i {
   grid-column: 2;
