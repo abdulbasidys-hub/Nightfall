@@ -1,28 +1,37 @@
 /* A real layout gap keeps the orbital artwork clear of the headline. */
 .wordmark > span { color: var(--green); }
-.hero { padding: 34px var(--pad) 0; overflow: hidden; position: relative; }
+.hero { padding: 28px var(--pad) 0; overflow: hidden; position: relative; background: #050707; isolation: isolate; }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(125deg, transparent 76%, #131918 76.1%, #080b0b 90%);
+}
 .hero-top { display: flex; justify-content: flex-end; align-items: center; color: var(--silver); }
 .hero-title {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(32px, 4.2vw, 80px);
+  gap: clamp(28px, 3.5vw, 64px);
   min-height: 0;
-  padding: 30px 0;
+  padding: 10px 0 24px;
 }
 .hero h1 {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  font-size: clamp(64px, 8.8vw, 144px);
-  line-height: 1.05;
+  display: block;
+  font-size: clamp(64px, 7.9vw, 144px);
+  font-weight: 600;
+  line-height: .94;
   max-width: none;
   min-width: 0;
   white-space: nowrap;
   animation: hero-enter .9s ease-out both;
 }
-/* The width of “Ide” sets the indent, aligning the second line with the “a”. */
-.hero h1 em { grid-column: 2; width: max-content; display: block; color: var(--white); margin-left: 0; }
+/* Match the chosen banner's compact lines and modest second-line indent. */
+.hero h1 > span { display: block; }
+.hero h1 em { width: max-content; display: block; color: var(--white); margin-left: .65em; font-style: normal; }
 .hero h1 em::after { content: none; }
 .hero .orbit {
   display: block;
@@ -30,33 +39,33 @@
   inset: auto;
   width: 100%;
   height: auto;
-  aspect-ratio: 1;
-  max-width: 450px;
+  aspect-ratio: 500 / 380;
+  max-width: 500px;
   max-height: none;
   justify-self: end;
   opacity: 1;
   transform: none;
 }
 /* Tracks and badge centers share SVG coordinates at every screen size. */
-.hero .orbit-track { stroke: #acb8b0; stroke-width: 1.75; }
-.hero .orbit-track-2 { stroke: #d0d9d3; }
-.hero .orbit-track-3 { stroke: #75877b; }
+.hero .orbit-track { stroke: #e0e5e3; stroke-width: 2; }
+.hero .orbit-track-2 { stroke: #f0f3f1; }
+.hero .orbit-track-3 { stroke: #a8b1ad; }
 .hero .orbit-node { fill: var(--green); }
 .hero .orbit-badge { color: #e1e7e3; }
-.hero .orbit-badge > circle { fill: #101713; stroke: #a5b4aa; stroke-width: 1; }
+.hero .orbit-badge > circle { fill: #080c0b; stroke: #c7ceca; stroke-width: 1; }
 .hero .orbit-badge .icon-accent { stroke: var(--green); }
 .hero-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 30px; padding: 0 0 55px; }
 .hero-bottom p { color: var(--silver); font-size: 13px; line-height: 1.7; }
 .hero-bottom .arrow-link { justify-self: end; min-width: 210px; }
 @media (max-width: 1000px) {
   .hero-title { gap: 32px; padding-block: 30px 28px; }
-  .hero h1 { font-size: clamp(58px, 8.4vw, 94px); }
+  .hero h1 { font-size: clamp(48px, 7.8vw, 94px); }
 }
 @media (max-width: 700px) {
   .hero { padding-top: 25px; }
   .hero-top > span:last-child { display: inline; }
   .hero-title { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-block: 28px 20px; }
-  .hero h1 { font-size: clamp(42px, 14vw, 84px); }
+  .hero h1 { font-size: clamp(36px, 14.2vw, 88px); }
   .hero .orbit { width: min(100%, 310px); justify-self: center; }
   .hero-bottom { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-bottom: 36px; }
   .hero-bottom p { font-size: 14px; line-height: 1.65; max-width: 300px; }

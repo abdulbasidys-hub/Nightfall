@@ -22,7 +22,7 @@ test('badges stay inside the graphic and do not collide', () => {
   const radius = orbitGeometry.badgeRadius;
   for (const point of points) {
     assert.ok(point.x - radius > 0 && point.x + radius < 500);
-    assert.ok(point.y - radius > 0 && point.y + radius < 500);
+    assert.ok(point.y - radius > 60 && point.y + radius < 440);
   }
   for (let i = 0; i < points.length; i++) {
     for (let j = i + 1; j < points.length; j++) {

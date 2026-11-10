@@ -16,4 +16,7 @@ export async function getProject(slug:string):Promise<Project|null>{
  return client.fetch<Project|null>(projectDetailQuery,{slug},{perspective:'published',cache:'no-store'});
 }
 export function mediaUrl(media:Media,width=1600){if(!client)return '';return imageUrlBuilder(client).image(media).width(width).auto('format').url();}
+// Covers always use the original asset, including areas cropped in Studio.
+export function coverUrl(media:Media,width=1600){if(!client)return '';return imageUrlBuilder(client).image(media.asset).width(width).fit('max').auto('format').url();}
+export function isWideCover(media?:Media){if(!media)return false;const {width,height}=mediaDimensions(media);return width/height>=2;}
 export function mediaDimensions(media:Media){const match=(media.asset._ref||media.asset.url||'').match(/-(\d+)x(\d+)[-.]/);return match?{width:Number(match[1]),height:Number(match[2])}:{width:1600,height:1000};}
