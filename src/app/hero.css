@@ -20,7 +20,9 @@
   padding: 10px 0 24px;
 }
 .hero h1 {
-  display: block;
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  width: max-content;
   font-size: clamp(64px, 7.9vw, 144px);
   font-weight: 600;
   line-height: .94;
@@ -29,10 +31,27 @@
   white-space: nowrap;
   animation: hero-enter .9s ease-out both;
 }
-/* Match the chosen banner's compact lines and modest second-line indent. */
-.hero h1 > span { display: block; }
-.hero h1 em { width: max-content; display: block; color: var(--white); margin-left: .65em; font-style: normal; }
-.hero h1 em::after { content: none; }
+/* Both i stems occupy one grid column, so the join scales with the type. */
+.hero h1 .hero-line { display: contents; font-style: normal; }
+.hero-word-prefix { grid-column: 1; justify-self: end; }
+.hero-joined-i, .hero-lower-i {
+  grid-column: 2;
+  position: relative;
+  text-align: center;
+  letter-spacing: 0;
+  margin-right: -.065em;
+}
+.hero-joined-i::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: .58em;
+  width: .095em;
+  height: .7em;
+  transform: translateX(-50%);
+  background: currentColor;
+  pointer-events: none;
+}
 .hero .orbit {
   display: block;
   position: relative;
